@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block start %}
+
+{{request.user}}
+
+{{request.user.first_name}}
+
+
+<div class="container mt-5">
+<table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">articleTitle </th>
+        <th scope="col">articleSubTitle</th>
+        <th scope="col">articleThumbnail</th>
+        <th scope="col">articleDescription</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for a in article %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{a.articleTitle}}</td>
+
+        <td>{{a.articleSubTitle}}</td>
+        <td>{{a.articleDescription}}</td>
+
+
+        <td>{{a.articleThumbnail}}</td>
+        <td> <img src="/media/{{a.articleThumbnail}}" style="height:200px"> </td>
+        <td> 
+          <a href="/delete-recepie/{{recepie.id}}/" class = "btn btn-danger m-2">Delete</a>
+          <a href="/update-recepie/{{recepie.id}}" class="btn btn-success">Update</a>
+          <!-- <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> -->
+        </td>
+      
+      </tr>
+
+      {% endfor %}
+      
+    </tbody>
+  </table>
+  {% endblock %}
