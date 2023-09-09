@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from article.models import User
+
 
 # Create your views here.
 
@@ -133,3 +133,29 @@ def showArticle(request):
     
 
     return render(request, "showArticle.html",context)
+
+def update_article(request, id):
+    queryset = Article.objects.get(id = id)
+    if request.method == "POST":
+        data = request.POST
+        articleTitle = data.get('articleTitle')
+        articleSubTitle = data.get('articleSubtitle')
+        articleThumbnail = request.FILES.get('articleThumbnail')
+        articleDescription = data.get('articleDescription')
+
+        queryset.articleTitle = articleTitle
+        queryset.articleSubTitle = articleSubTitle
+        queryset.articleDescription = articleDescription
+
+        if articleThumbnail:
+            queryset.articleThumbnail = articleThumbnail
+        queryset.save()
+        return redirect('/add-article/')
+    context = {'article': queryset}
+    return render(request , 'updateArticle.html',context)
+    
+def delete_article(request,id):
+    queryset = Article.objects.get(id = id)
+    queryset.delete()
+
+    return redirect('/show-article/')

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+ 
+
+<div class="container mt-5">
+
+ 
+
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+
+       
+
+      {% csrf_token %}
+
+      <h2>Update Article</h2>
+
+        <hr>
+
+        <div class="mb-3">
+
+          <label for="exampleInputEmail1" class="form-label">Article Title</label>
+
+          <input name="articleTitle" value ="{{article.articleTitle}}"required type ="text" class="form-control" >
+
+        </div>
+        <div class="mb-3">
+
+            <label for="exampleInputEmail1" class="form-label">Article SubTitle </label>
+  
+            <input name="articleSubtitle" value ="{{article.articleSubtitle}}"required type ="text" class="form-control" >
+  
+          </div>
+
+        <div class="mb-3">
+
+          <label for="exampleInputPassword1" class="form-label">Article Description </label>
+
+          <textarea class="form-control" value="" name="articleDiscription"  required type ="text">{{article.articleDiscription}}</textarea>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label for="exampleInputPassword1"  class="form-label">Article Thumbnail  </label>
+
+            <input type="file" class="form-control" name ="articleThumbnail">
+
+          </div>
+
+       
+
+        <button type="submit" class="btn btn-primary">Update Article</button>
+
+      </form>
+
+   
+
+ 
+
+     
+
+</div>
+
+ 
+
+{% endblock %}

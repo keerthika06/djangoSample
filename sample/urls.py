@@ -32,8 +32,9 @@ urlpatterns = [
     path('add-user/',register_page,name="register_page"),
     path('admin/', admin.site.urls),
     path('add-article/',add_article,name ="add_article"),
-    path('show-article/',showArticle,name ="showArticle")
-
+    path('show-article/',showArticle,name ="showArticle"),
+    path('update-article/<id>/',update_article,name ="update_article"),
+    path('delete-article/<id>/',delete_article,name="delete_article"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)
