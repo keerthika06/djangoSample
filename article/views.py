@@ -159,3 +159,7 @@ def delete_article(request,id):
     queryset.delete()
 
     return redirect('/show-article/')
+def logout_page(request):
+    logout(request)
+
+    return redirect('/login/')
