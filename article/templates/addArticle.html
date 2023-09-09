@@ -40,13 +40,63 @@
       </form>
 <hr>
 
-<button type="submit" class="btn btn-primary">View Articles</button>
+<!-- <button type="submit" class="btn btn-primary">View Articles</button> -->
+<a href="/show-article/" class="btn btn-success">View Articles</a>
 
-      
+
+
+<!--  
+<div class = "mt-5">
+  <div class = "mx-auto col-6">
+    <form>
+
+    <div class = "mb-3">
+      <label for="exampleInputEmail1" class ="form-label">Search food</label>
+      <input name = "search"  type = "text" class =" form-control">
+    </div>
+    <button type = "submit" class="btn btn-primary">Search</button>
+  </form>
+
+  </div>
+</div>
+
+
+
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">RECEPIE NAME</th>
+      <th scope="col">RECEPIE DESCRIPTION</th>
+      <th scope="col">RECEPIE IMAGE</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in articles %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{a.articleTitle}}</td>
+      <td>{{a.articleSubTitle}}</td>
+      <td>{{a.articleThumbnail}}</td>
+      <td> <img src="/media/{{recepie.recepie_image}}" style="height:200px"> </td>
+      <td> 
+        <a href="/delete-recepie/{{recepie.id}}/" class = "btn btn-danger m-2">Delete</a>
+        <a href="/update-recepie/{{recepie.id}}" class="btn btn-success">Update</a>
+        <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a>
+      </td>
+    
+    </tr>
+
+    {% endfor %}
+    
+  </tbody>
+</table>
+
 
  
 
-      <table class="table mt-5">
+      <table class="table mt-5"> 
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -67,7 +117,7 @@
             <td> 
               <a href="/delete-recepie/{{recepie.id}}/" class = "btn btn-danger m-2">Delete</a>
               <a href="/update-recepie/{{recepie.id}}" class="btn btn-success">Update</a>
-              <!-- <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> -->
+               <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> 
             </td>
           
           </tr>
@@ -75,7 +125,7 @@
           {% endfor %}
           
         </tbody>
-      </table>
+       </table> -->
 </div>
 
 {% endblock %}

@@ -41,7 +41,7 @@ def login_page(request):
           
                 return redirect('/add-user/')
             elif user.is_author:
-                return redirect('/addArticle')
+                return redirect('/add-article/')
             elif user.is_publisher:
                 return redirect('/Publisher')
             else:
@@ -98,13 +98,38 @@ def add_article(request):
             articleThumbnail = articleThumbnail,
             articleDescription = articleDescription
         )
+        return redirect('/add-article/')
+    queryset= Article.objects.all()
+
+    if request.GET.get('search'):
+        queryset = queryset.filter(recepie_name__icontains = request.GET.get('search'))
+        print(request.GET.get('search'))
+    
+   
+    context = {'articles': queryset}
+    return render(request, "addArticle.html",context)
 
 
-    return render(request, "addArticle.html")
+
+
+
+
+
+
+
+    #queryset= Article.objects.all()
+    #context = {'recepies': queryset}
+    
+
+
+
+
+
+    #return render(request, "addArticle.html")
 
 def showArticle(request):
     queryset = Article.objects.all()
-    context = {'articles':queryset}
-   
+    context = { 'articles':queryset}
+    
 
     return render(request, "showArticle.html",context)
