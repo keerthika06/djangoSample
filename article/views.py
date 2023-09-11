@@ -3,7 +3,9 @@ from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout 
+from article.models import User
+
 
 
 # Create your views here.
@@ -41,7 +43,7 @@ def login_page(request):
           
                 return redirect('/add-user/')
             elif user.is_author:
-                return redirect('/add-article/')
+                return redirect('/author-page/')
             elif user.is_publisher:
                 return redirect('/Publisher')
             else:
@@ -127,6 +129,17 @@ def add_article(request):
 
     #return render(request, "addArticle.html")
 
+def authorPage(request):
+    
+    
+
+    return render(request, "authorpage.html")
+
+
+
+
+
+
 def showArticle(request):
     queryset = Article.objects.all()
     context = { 'articles':queryset}
@@ -163,3 +176,4 @@ def logout_page(request):
     logout(request)
 
     return redirect('/login/')
+

@@ -20,6 +20,8 @@ from article.views import *
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from article.models import User
+
 
 
 
@@ -31,6 +33,8 @@ urlpatterns = [
     path('login/',login_page, name ="login_page"),
     path('add-user/',register_page,name="register_page"),
     path('admin/', admin.site.urls),
+    path('author-page/',authorPage,name ="authorPage"),
+
     path('add-article/',add_article,name ="add_article"),
     path('show-article/',showArticle,name ="showArticle"),
     path('update-article/<id>/',update_article,name ="update_article"),
