@@ -21,6 +21,8 @@ def articles(request):
 
   return render(request, 'base.html')
 
+
+
 def login_page(request):
    if request.method == 'POST':
         username = request.POST.get('username')
@@ -85,7 +87,11 @@ def register_page(request):
         messages.info(request, 'Account successfully created')
 
         return redirect('/add-user/')
-    return render(request, 'addUser.html')
+    return render(request, 'addUser.html' )
+
+
+
+
 def add_article(request):
     if request.method == "POST":
         data = request.POST
@@ -103,9 +109,12 @@ def add_article(request):
         return redirect('/add-article/')
     queryset= Article.objects.all()
 
-    if request.GET.get('search'):
-        queryset = queryset.filter(recepie_name__icontains = request.GET.get('search'))
-        print(request.GET.get('search'))
+    #if request.GET.get('search'):
+       # queryset = queryset.filter(recepie_name__icontains = request.GET.get('search'))
+       # print(request.GET.get('search'))
+    for q in queryset:
+        if q.isreviewd is False:
+            print(q)
     
    
     context = {'articles': queryset}
@@ -136,8 +145,12 @@ def authorPage(request):
     return render(request, "authorpage.html")
 
 
+def viewUsers(request):
+    queryset= User.objects.all()
+    print(queryset)
+    context = {'users': queryset}
 
-
+    return render(request, "viewUsers.html",context)
 
 
 def showArticle(request):
@@ -146,6 +159,12 @@ def showArticle(request):
     
 
     return render(request, "showArticle.html",context)
+def draftArticle(request):
+    queryset = Article.objects.all()
+    for q in queryset:
+        if q.isreviewd is False:
+            context = { 'articles':queryset}
+    return render(request, 'showArticle.html',context)
 
 def update_article(request, id):
     queryset = Article.objects.get(id = id)

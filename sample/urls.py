@@ -34,9 +34,12 @@ urlpatterns = [
     path('add-user/',register_page,name="register_page"),
     path('admin/', admin.site.urls),
     path('author-page/',authorPage,name ="authorPage"),
+    path('view-users/',viewUsers,name ="viewUsers"),
 
     path('add-article/',add_article,name ="add_article"),
     path('show-article/',showArticle,name ="showArticle"),
+    path('draft-article/',draftArticle,name ="draftArticle"),
+
     path('update-article/<id>/',update_article,name ="update_article"),
     path('delete-article/<id>/',delete_article,name="delete_article"),
     path('logout/',logout_page,name="logout_page")

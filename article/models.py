@@ -14,3 +14,6 @@ class Article(models.Model):
     articleThumbnail = models.ImageField(upload_to = "images")
     articleDescription = models.TextField()
     articlestatus =models.CharField(max_length=100,default='draft')
+    isreviewd = models.BooleanField(default=False)
+    isrejected = models.BooleanField(default=False)
+    comments = models.TextField(default='')

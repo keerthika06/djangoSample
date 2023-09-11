@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block start %}
+
+{{request.user}}
+
+{{request.user.first_name}}
+
+
+<div class="container mt-5">
+<table class="table mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name </th>
+        <th scope="col">Last Name</th>
+        <th scope="col">UserName</th>
+        <th scope="col">Role </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{user.first_name}}</td>
+
+        <td>{{user.last_name}}</td>
+        <td>{{user.username}}</td>
+
+        <td>
+            
+
+
+ {% with result=user.is_author|yesno:"Author,Publisher" %}
+            {{ result }}
+            {% endwith %}
+            {% if user.first_name is None %}
+                   admin
+                {% endif %}
+            
+            
+           
+
+
+        
+
+        </td>
+
+
+        <!-- <td>{{a.articleThumbnail}}</td> -->
+      
+      </tr>
+
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+  {% endblock %}
