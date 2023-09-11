@@ -30,6 +30,61 @@
         <a class = "navbar-brand">welcome!!!!!</a>
         {% block start %}
 
+
+
+        <div class="container mt-5">
+
+ 
+
+            <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        
+               
+        
+            
+        
+              <h1>Article </h1>
+        
+                <hr>
+                {% for article in articles %}
+      <tr>
+        
+                <div class="mb-3">
+        
+                  <label for="exampleInputEmail1" class="form-label">Article Title      :</label>
+        
+                  <td>{{article.articleTitle}}</td>
+        
+                </div>
+        
+                <div class="mb-3">
+        
+                  <label for="exampleInputPassword1" class="form-label">Article Subtitle      :</label>
+        
+                  <td>{{article.articleSubTitle}}</td>
+        
+                </div>
+                <div class="mb-3">
+        
+                    <label for="exampleInputPassword1" class="form-label">Article Description      :</label>
+          
+                    <td>{{article.articleDescription}}</td>
+          
+                  </div>
+        
+                <div class="mb-3">
+        
+                    <label for="exampleInputPassword1"  class="form-label">Article Thumbnail      :</label>
+        
+                    <td> <img src="/media/{{article.articleThumbnail}}" style="height:200px"> </td>
+        
+                  </div>
+                  <hr>
+                  {% endfor %}
+        
+            </form>
+        </div>
+
+
         {% endblock %}
     
 

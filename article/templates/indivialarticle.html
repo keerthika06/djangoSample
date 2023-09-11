@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block start %}
+
+ 
+
+<div class="container mt-5">
+
+ 
+
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+
+       
+
+    
+
+      <h1>Article </h1>
+
+        <hr>
+
+        <div class="mb-3">
+
+          <label for="exampleInputEmail1" class="form-label">Article Title      :</label>
+
+          <td>{{articles.articleTitle}}</td>
+
+        </div>
+
+        <div class="mb-3">
+
+          <label for="exampleInputPassword1" class="form-label">Article Subtitle      :</label>
+
+          <td>{{articles.articleSubTitle}}</td>
+
+        </div>
+        <div class="mb-3">
+
+            <label for="exampleInputPassword1" class="form-label">Article Description      :</label>
+  
+            <td>{{articles.articleDescription}}</td>
+  
+          </div>
+
+        <div class="mb-3">
+
+            <label for="exampleInputPassword1"  class="form-label">Article Thumbnail      :</label>
+
+            <td> <img src="/media/{{articles.articleThumbnail}}" style="height:200px"> </td>
+
+          </div>
+
+       
+        
+        <button type="submit" class="btn btn-primary">Accept</button>
+<hr>
+        <button type="submit" class="btn btn-primary">Reject</button>
+
+
+      </form>
+
+   
+
+ 
+
+     
+
+</div>
+
+ 
+
+{% endblock %}

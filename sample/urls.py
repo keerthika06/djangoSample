@@ -39,6 +39,10 @@ urlpatterns = [
     path('add-article/',add_article,name ="add_article"),
     path('show-article/',showArticle,name ="showArticle"),
     path('draft-article/',draftArticle,name ="draftArticle"),
+    path('publisher-article/',publisherArticle,name ="publisherArticle"),
+    path('individual-article/<id>/',individualarticle,name ="individualarticle"),
+
+
 
     path('update-article/<id>/',update_article,name ="update_article"),
     path('delete-article/<id>/',delete_article,name="delete_article"),

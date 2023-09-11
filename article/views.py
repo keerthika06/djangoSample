@@ -11,9 +11,11 @@ from article.models import User
 # Create your views here.
 
 def home(request):
+    queryset = Article.objects.all()
+    context = { 'articles':queryset}
    
 
-    return render(request, "base.html")
+    return render(request, "base.html",context)
 
 def articles(request):
 
@@ -47,7 +49,7 @@ def login_page(request):
             elif user.is_author:
                 return redirect('/author-page/')
             elif user.is_publisher:
-                return redirect('/Publisher')
+                return redirect('/publisher-article')
             else:
                 messages.error(request, 'Try to login again.')
                 return redirect('/login/')
@@ -185,6 +187,26 @@ def update_article(request, id):
         return redirect('/add-article/')
     context = {'article': queryset}
     return render(request , 'updateArticle.html',context)
+def publisherArticle(request):
+  
+  
+  queryset = Article.objects.all()
+  for q in queryset:
+    if q.isreviewd == False:
+
+        context = { 'articles':queryset}
+
+ 
+
+  return render(request, 'publisherindex.html',context)
+def individualarticle(request,id):
+    print("hiii")
+    queryset = Article.objects.get(id = id)
+    context = { 'articles':queryset}
+
+   
+
+    return render(request ,'indivialarticle.html',context)
     
 def delete_article(request,id):
     queryset = Article.objects.get(id = id)

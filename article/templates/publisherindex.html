@@ -22,16 +22,15 @@
       {% for article in articles %}
       <tr>
         <th scope="row">{{forloop.counter}}</th>
-        <td>{{article.articleTitle}} </td>
+        <td>{{article.articleTitle}}</td>
 
-        <td>{{article.articleSubTitle}}</td>
-        <td>{{article.articleDescription}}</td>
+        <td>{{article.articleSubTitle|truncatechars:20}}</td>
+        <td>{{article.articleDescription|truncatechars:20}}</td>
         <!-- <td>{{a.articleThumbnail}}</td> -->
         <td> <img src="/media/{{article.articleThumbnail}}" style="height:200px"> </td>
         <td> 
           
-          <a href="/delete-article/{{article.id}}/" class = "btn btn-danger m-2">Delete</a>
-          <a href="/update-article/{{article.id}}/" class="btn btn-success">Update</a>
+          <a href="/individual-article/{{article.id}}/" class = "btn btn-danger m-2">Preview</a>
           <!-- <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> -->
         </td>
       
