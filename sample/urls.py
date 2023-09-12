@@ -37,10 +37,14 @@ urlpatterns = [
     path('view-users/',viewUsers,name ="viewUsers"),
 
     path('add-article/',add_article,name ="add_article"),
+    path('show-Article-to-author/',showArticletoauthor,name ="showArticletoauthor"),
+
     path('show-article/',showArticle,name ="showArticle"),
     path('draft-article/',draftArticle,name ="draftArticle"),
     path('publisher-article/',publisherArticle,name ="publisherArticle"),
-    path('individual-article/<id>/',individualarticle,name ="individualarticle"),
+    #path('individual-article/<id>/',individualarticle,name ="individualarticle"),
+    # path('individual-article/<id>/', individualarticle, name="individualarticle"),
+    path('individualarticle/<id>/', individualarticle, name="individualarticle"),
 
 
 

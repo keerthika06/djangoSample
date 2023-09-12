@@ -29,20 +29,13 @@
 
         <td>
             
-
-
- {% with result=user.is_author|yesno:"Author,Publisher" %}
+          {% if not user.first_name %}
+          admin
+          {%else%}
+        {% with result=user.is_author|yesno:"Author,Publisher" %}
             {{ result }}
             {% endwith %}
-            {% if user.first_name is None %}
-                   admin
-                {% endif %}
-            
-            
-           
-
-
-        
+            {% endif %}
 
         </td>
 

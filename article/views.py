@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout 
 from article.models import User
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -94,6 +95,8 @@ def register_page(request):
 
 
 
+
+@login_required
 def add_article(request):
     if request.method == "POST":
         data = request.POST
@@ -106,29 +109,25 @@ def add_article(request):
             articleTitle = articleTitle,
             articleSubTitle = articleSubTitle,
             articleThumbnail = articleThumbnail,
-            articleDescription = articleDescription
+            articleDescription = articleDescription,
+            user = request.user
         )
-        return redirect('/add-article/')
-    queryset= Article.objects.all()
+        #return redirect('/add-article/')
+    #queryset= Article.objects.all()
+    #queryset= Article.objects.filter(user = request.user)
+
 
     #if request.GET.get('search'):
        # queryset = queryset.filter(recepie_name__icontains = request.GET.get('search'))
        # print(request.GET.get('search'))
-    for q in queryset:
-        if q.isreviewd is False:
-            print(q)
+    # for q in queryset:
+    #     if q.isreviewd is False:
+    #         print(q)
     
-   
-    context = {'articles': queryset}
-    return render(request, "addArticle.html",context)
-
-
-
-
-
-
-
-
+    author = request.user
+    print(author)
+    #context = {'articles': queryset}
+    return render(request, "addArticle.html")
 
     #queryset= Article.objects.all()
     #context = {'recepies': queryset}
@@ -154,13 +153,23 @@ def viewUsers(request):
 
     return render(request, "viewUsers.html",context)
 
+@login_required
+def showArticletoauthor(request):
+    author = request.user
+    print("hiii",author)
+    queryset= Article.objects.filter(user = author)
+    #queryset = Article.objects.all()
+    context = { 'articles':queryset}
+    return render(request, "showArticle.html",context)
+
+
 
 def showArticle(request):
     queryset = Article.objects.all()
     context = { 'articles':queryset}
-    
-
     return render(request, "showArticle.html",context)
+
+
 def draftArticle(request):
     queryset = Article.objects.all()
     for q in queryset:
@@ -189,17 +198,77 @@ def update_article(request, id):
     return render(request , 'updateArticle.html',context)
 def publisherArticle(request):
   
-  
-  queryset = Article.objects.all()
-  for q in queryset:
-    if q.isreviewd == False:
+  queryset = Article.objects.filter(articlestatus ='draft')
+  context = { 'articles':queryset}
+  return render(request, 'publisherindex.html',context)
 
-        context = { 'articles':queryset}
+
+# def individualarticle(request,id):
+#     #queryset = Article.objects.get(id = id)
+#     if request.method == 'POST':
+#         aorr = request.POST.get('aorr')
+#         articles = Article.objects.get(pk=id)
+#         articles.status = aorr
+#         articles.save()
+
+
+#         #if aorr == "Accept":
+#            # queryset.articlestatus = "Published"
+#          #   messages.info(request, 'Article published succesfully')
+#        # else:
+#         #    queryset.articlestatus = "Rejected"
+#        #     messages.info(request, 'Article rejected')
+#       #  queryset.save()
+#         return redirect('publisher-article')
+#     #context = { 'articles':queryset }
+#     return render(request ,'indivialarticle.html')
+
+def individualarticle(request, id):
+
+  if request.method == 'POST':
+
+    status = request.POST.get('status')
+
+    article = Article.objects.get(pk=id)
+
+    article.status = status
+
+    article.save()
 
  
 
-  return render(request, 'publisherindex.html',context)
-def individualarticle(request,id):
+    return redirect('publisher-article')
+
+ 
+
+  return render(request, 'indivialarticle.html')
+
+
+
+
+
+  
+
+    # print("hiii")
+    # queryset = Article.objects.get(id = id)
+    # context = { 'articles':queryset}
+    # if request.method == 'POST':
+
+    #     aorr = request.POST.get('aorr')
+    #     if aorr == "Accept":
+    #         queryset.articlestatus = "Published"
+    #         messages.info(request, 'Article published succesfully')
+    #     else:
+    #         queryset.articlestatus = "Rejected"
+    #         messages.info(request, 'Article rejected')
+    #     queryset.save()
+    #     return redirect(f'/individual-article/{id}/')
+    # return render(request ,'indivialarticle.html',context)
+    
+
+
+
+def publisherAccept(request,id):
     print("hiii")
     queryset = Article.objects.get(id = id)
     context = { 'articles':queryset}

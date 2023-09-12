@@ -1,71 +1,99 @@
+
+
+
 {% extends "base.html" %}
 
 {% block start %}
 
- 
+<div class="container mt-5 ">
 
-<div class="container mt-5">
-
- 
-
-    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
-
-       
-
-    
-
-      <h1>Article </h1>
-
-        <hr>
-
-        <div class="mb-3">
-
-          <label for="exampleInputEmail1" class="form-label">Article Title      :</label>
-
-          <td>{{articles.articleTitle}}</td>
-
-        </div>
-
-        <div class="mb-3">
-
-          <label for="exampleInputPassword1" class="form-label">Article Subtitle      :</label>
-
-          <td>{{articles.articleSubTitle}}</td>
-
-        </div>
-        <div class="mb-3">
-
-            <label for="exampleInputPassword1" class="form-label">Article Description      :</label>
-  
-            <td>{{articles.articleDescription}}</td>
-  
-          </div>
-
-        <div class="mb-3">
-
-            <label for="exampleInputPassword1"  class="form-label">Article Thumbnail      :</label>
-
-            <td> <img src="/media/{{articles.articleThumbnail}}" style="height:200px"> </td>
-
-          </div>
-
-       
-        
-        <button type="submit" class="btn btn-primary">Accept</button>
-<hr>
-        <button type="submit" class="btn btn-primary">Reject</button>
+  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data" action="{% url 'individualarticle'  %}">
 
 
-      </form>
+    {% csrf_token %}
 
-   
+    <h2>View Article</h2>
 
- 
+    <hr>
 
-     
+    <div class="row">
+
+      <div class="col-md-3">
+
+        <label for="exampleInputPassword1" class="form-label fw-bold">Article Image</label>
+
+      </div>
+
+      <div class="col-md-9">
+
+        <img src="/media/{{articles.thumbnail}}" style="height:200px">
+
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-3">
+
+        <label for="exampleInputEmail1" class="form-label fw-bold">Title</label>
+
+      </div>
+
+      <div class="col-md-9">
+
+        {{articles.title}}
+
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-3">
+
+        <label for="exampleInputEmail1" class="form-label fw-bold">Subtitle</label>
+
+      </div>
+
+      <div class="col-md-9">
+
+        {{articles.subtitle}}
+
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-3">
+
+        <label for="exampleInputPassword1" class="form-label fw-bold">Description</label>
+
+      </div>
+
+      <div class="col-md-9">
+
+        {{articles.description}}
+
+      </div>
+
+    </div>
+
+      <div class="text-center mt-3">
+
+        <button type="submit" class="btn btn-success" name="status" value="Published">Publish</button>
+
+        <button type="submit" class="btn btn-danger" name="status" value="Rejected">Reject</button>
+
+        <a href="/publisher-article/" class="btn btn-dark ml-auto">Back</a>
+
+      </div>
+
+  </form>
 
 </div>
 
- 
-
 {% endblock %}
+
+ 
