@@ -18,6 +18,16 @@
         <div class="container-fluid">
            <a class = "navbar-brand">        </a>
             <form class="d-flex" role="search">
+              {% if request.user.is_superuser %}
+              <div>
+                <a href="/add-user/" class = "btn btn-outline-success" type="submit">Add User</a>
+                <a href="/view-users/" class = "btn btn-outline-success" type="submit">View Users</a>
+
+              </div>
+              {%endif%}
+
+
+
               {% if request.user.is_author %}
                 <div>
                   <a href="/add-article/" class = "btn btn-outline-success" type="submit">Add Article</a>
@@ -29,6 +39,8 @@
 
                 {% if request.user.is_publisher %}
                 <div>
+                  <a href="/draft-article/" class = "btn btn-outline-success" type="submit">Drafts </a> 
+
                   <a href="/publisher-article/" class = "btn btn-outline-success" type="submit">View Article</a>
                   <!-- <a href="/draft-article/" class = "btn btn-outline-success" type="submit">Articles in Draft</a> -->
                   

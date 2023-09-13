@@ -28,13 +28,14 @@ from article.models import User
 
 
 urlpatterns = [
-    path('',home, name="home"),
+    path('',homeArticle, name="home"),
     path('article/',articles,name="article"),
     path('login/',login_page, name ="login_page"),
     path('add-user/',register_page,name="register_page"),
     path('admin/', admin.site.urls),
     path('author-page/',authorPage,name ="authorPage"),
     path('view-users/',viewUsers,name ="viewUsers"),
+    path('delete-user/<id>/',delete_user,name="delete_user"),
 
     path('add-article/',add_article,name ="add_article"),
     path('show-Article-to-author/',showArticletoauthor,name ="showArticletoauthor"),

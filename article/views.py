@@ -47,7 +47,7 @@ def login_page(request):
             login(request,user)
             if user.is_superuser:
           
-                return redirect('/add-user/')
+                return redirect('/author-page/')
             elif user.is_author:
                 return redirect('/author-page/')
             elif user.is_publisher:
@@ -175,11 +175,19 @@ def showArticle(request):
     context = { 'articles':queryset}
     return render(request, "showArticle.html",context)
 
+def homeArticle(request):
+    queryset = Article.objects.filter(articlestatus ='Published')
+    context = { 'articles':queryset}
+    return render(request, "base.html",context)
+
 
 def draftArticle(request):
     #queryset= Article.objects.filter(user = author)
-    author = request.user
-    queryset = Article.objects.filter(Q(articlestatus ='draft') & Q(user = author))
+    if request.user.is_author:
+        author = request.user
+        queryset = Article.objects.filter(Q(articlestatus ='draft') & Q(user = author))
+    else:
+        queryset = Article.objects.filter(articlestatus ='draft')
     context = { 'articles':queryset}
     
     return render(request, 'showArticle.html',context)
@@ -258,6 +266,12 @@ def delete_article(request,id):
     queryset.delete()
 
     return redirect('/show-article/')
+
+def delete_user(request,id):
+    queryset = User.objects.get(id=id)
+    queryset.delete()
+    return redirect('/view-users')
+    
 def logout_page(request):
     logout(request)
 

@@ -17,7 +17,10 @@
         <th scope="col">Article Status </th>
 
         <th scope="col">Article Thumbnail </th>
+        {%if request.user.is_author%} 
         <th scope="col">Actions</th> 
+        {%endif%}
+
       </tr>
     </thead>
     <tbody>
@@ -32,13 +35,14 @@
         <td>{{article.articlestatus}}</td>
 
         <td> <img src="/media/{{article.articleThumbnail}}" style="height:200px"> </td>
-        <td> 
-          
+        {%if request.user.is_author%} 
+        <td>
           <a href="/delete-article/{{article.id}}/" class = "btn btn-danger m-2">Delete</a>
           <a href="/update-article/{{article.id}}/" class="btn btn-success">Update</a>
           <!-- <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> -->
-      <!--  </td>
-      -->
+       </td>
+       {%endif%}
+      
       
       </tr>
 
