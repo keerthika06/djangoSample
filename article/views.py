@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from article.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 
@@ -47,9 +48,9 @@ def login_page(request):
             login(request,user)
             if user.is_superuser:
           
-                return redirect('/author-page/')
+                return redirect('/')
             elif user.is_author:
-                return redirect('/author-page/')
+                return redirect('/')
             elif user.is_publisher:
                 return redirect('/publisher-article')
             else:
@@ -82,10 +83,7 @@ def register_page(request):
         else:
             user.is_publisher = True
 
-            
 
-
-#**********************
         user.save()
 
         messages.info(request, 'Account successfully created')
@@ -142,7 +140,10 @@ def add_article(request):
 
 def authorPage(request):
     
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(articlestatus ='Published')
+    #queryset = Article.objects.filter(Q(articlestatus ='Published') | Q(articlestatus ='Rejected'))
+
+
     context = { 'articles':queryset}
    
 
@@ -159,7 +160,7 @@ def viewUsers(request):
 @login_required
 def showArticletoauthor(request):
     author = request.user
-    print("hiii",author)
+    
     queryset= Article.objects.filter(user = author)
     #queryset = Article.objects.all()
     print(queryset)
