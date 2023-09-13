@@ -36,7 +36,8 @@
         <td> <img src="/media/{{article.articleThumbnail}}" style="height:200px"> </td>
         <td> 
           
-          <a href="/individualarticle/{{article.id}}/" class = "btn btn-danger m-2">Preview</a>
+          <a href="{%url 'individualarticle' article.id %}" class = "btn btn-danger m-2">Preview</a>
+          <!--<a href="/individualarticle/{{articles.id}}/" class = "btn btn-danger m-2">Preview</a>-->
           <!-- <a href="/update-recepies/{{recepie.id}}/" class = "btn btn-success">Update </a> -->
         </td>
         

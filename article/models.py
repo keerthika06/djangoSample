@@ -10,9 +10,9 @@ class User(AbstractUser):
 class Article(models.Model):
     user = models.ForeignKey(User,on_delete = models.SET_NULL , null = True, blank = True)
     articleTitle = models.CharField(max_length=100)
-    articleSubTitle = models.TextField()
+    articleSubTitle = models.TextField(null=True, blank=True)
     articleThumbnail = models.ImageField(upload_to = "images")
-    articleDescription = models.TextField()
+    articleDescription = models.TextField(null=True, blank=True)
     articlestatus =models.CharField(max_length=100,default='draft')
     isreviewd = models.BooleanField(default=False)
     isrejected = models.BooleanField(default=False)

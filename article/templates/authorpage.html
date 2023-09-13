@@ -5,13 +5,53 @@
 
 {{request.user.first_name}}
 <div class="container mt-5">
-    <a href="/add-article/" class="btn btn-success">Add Article</a>
+    <!-- <a href="/add-article/" class="btn btn-success">Add Article</a>
     <a href="/show-article/" class="btn btn-success">View Articles</a>
-    <a href="/draft-article/" class="btn btn-success">Drafts </a>
+    <a href="/draft-article/" class="btn btn-success">Drafts </a> -->
+    <h1>Article </h1>
+        
+    <hr>
+    {% for article in articles %}
+<tr>
+    <div class="mb-3">
+        
+      <label for="exampleInputEmail1" class="form-label">Article Title      :</label>
 
+      <td>{{article.articleTitle}}</td>
 
+    </div>
 
+    <div class="mb-3">
 
+      <label for="exampleInputPassword1" class="form-label">Article Subtitle      :</label>
 
+      <td>{{article.articleSubTitle}}</td>
+
+    </div>
+    <div class="mb-3">
+
+        <label for="exampleInputPassword1" class="form-label">Article Description      :</label>
+
+        <td>{{article.articleDescription}}</td>
+
+      </div>
+
+    <div class="mb-3">
+
+        <label for="exampleInputPassword1"  class="form-label">Article Thumbnail      :</label>
+
+        <td> <img src="/media/{{article.articleThumbnail}}" style="height:200px"> </td>
+
+      </div>
+      <hr>
+      {% endfor %}
+
+</form>
 </div>
+
+
+
+
+
+
   {% endblock %}

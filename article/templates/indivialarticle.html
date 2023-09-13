@@ -1,99 +1,85 @@
-
-
-
 {% extends "base.html" %}
 
 {% block start %}
 
-<div class="container mt-5 ">
-
-  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data" action="{% url 'individualarticle'  %}">
 
 
+
+<div class="container mt-5">
+  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    
+      <h1>Article </h1>
+      {% if messages %}
+        <div class = "alert alert-primary" role="alert">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+         </div>
+<ul class="messages">
+    <li{% if message.tags %} class = "{{message.tags}}"{% endif %}>{{message}}</li>
+</ul>
+       
+{% endif %}
 
-    <h2>View Article</h2>
+        <hr>
 
-    <hr>
+        <div class="mb-3">
 
-    <div class="row">
+          <label for="exampleInputEmail1" class="form-label">Article Title      :</label>
 
-      <div class="col-md-3">
+          <td>{{articles.articleTitle}}</td>
 
-        <label for="exampleInputPassword1" class="form-label fw-bold">Article Image</label>
+        </div>
 
-      </div>
+        <div class="mb-3">
 
-      <div class="col-md-9">
+          <label for="exampleInputPassword1" class="form-label">Article Subtitle      :</label>
 
-        <img src="/media/{{articles.thumbnail}}" style="height:200px">
+          <td>{{articles.articleSubTitle}}</td>
 
-      </div>
+        </div>
+        <div class="mb-3">
 
-    </div>
+            <label for="exampleInputPassword1" class="form-label">Article Description      :</label>
+  
+            <td>{{articles.articleDescription}}</td>
+  
+          </div>
 
-    <div class="row">
+        <div class="mb-3">
 
-      <div class="col-md-3">
+            <label for="exampleInputPassword1"  class="form-label">Article Thumbnail      :</label>
 
-        <label for="exampleInputEmail1" class="form-label fw-bold">Title</label>
+            <td> <img src="/media/{{articles.articleThumbnail}}" style="height:200px"> </td>
 
-      </div>
+          </div>
 
-      <div class="col-md-9">
+       
+        
+        
+       <!--<a href="/individual-article/{{articles.id}}/" class="btn btn-success" name="aorr" value="Accept">Accept</a>
+<hr>
+        <a href="/publisher-article/" class="btn btn-danger" name="aorr" value="Reject" >Reject</a>
+        
+--> 
 
-        {{articles.title}}
-
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-3">
-
-        <label for="exampleInputEmail1" class="form-label fw-bold">Subtitle</label>
-
-      </div>
-
-      <div class="col-md-9">
-
-        {{articles.subtitle}}
-
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-3">
-
-        <label for="exampleInputPassword1" class="form-label fw-bold">Description</label>
-
-      </div>
-
-      <div class="col-md-9">
-
-        {{articles.description}}
-
-      </div>
-
-    </div>
-
-      <div class="text-center mt-3">
+       
 
         <button type="submit" class="btn btn-success" name="status" value="Published">Publish</button>
-
+        <hr>
         <button type="submit" class="btn btn-danger" name="status" value="Rejected">Reject</button>
 
-        <a href="/publisher-article/" class="btn btn-dark ml-auto">Back</a>
 
-      </div>
 
-  </form>
 
-</div>
+      </form>
 
-{% endblock %}
+   
 
  
+
+     
+
+</div>
+{% endblock %} 

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout 
 from article.models import User
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 
@@ -141,9 +142,11 @@ def add_article(request):
 
 def authorPage(request):
     
-    
+    queryset = Article.objects.all()
+    context = { 'articles':queryset}
+   
 
-    return render(request, "authorpage.html")
+    return render(request, "authorpage.html",context)
 
 
 def viewUsers(request):
@@ -159,7 +162,10 @@ def showArticletoauthor(request):
     print("hiii",author)
     queryset= Article.objects.filter(user = author)
     #queryset = Article.objects.all()
+    print(queryset)
+    
     context = { 'articles':queryset}
+    
     return render(request, "showArticle.html",context)
 
 
@@ -171,10 +177,11 @@ def showArticle(request):
 
 
 def draftArticle(request):
-    queryset = Article.objects.all()
-    for q in queryset:
-        if q.isreviewd is False:
-            context = { 'articles':queryset}
+    #queryset= Article.objects.filter(user = author)
+    author = request.user
+    queryset = Article.objects.filter(Q(articlestatus ='draft') & Q(user = author))
+    context = { 'articles':queryset}
+    
     return render(request, 'showArticle.html',context)
 
 def update_article(request, id):
@@ -182,7 +189,7 @@ def update_article(request, id):
     if request.method == "POST":
         data = request.POST
         articleTitle = data.get('articleTitle')
-        articleSubTitle = data.get('articleSubtitle')
+        articleSubTitle = data.get('articleSubTitle')
         articleThumbnail = request.FILES.get('articleThumbnail')
         articleDescription = data.get('articleDescription')
 
@@ -198,7 +205,7 @@ def update_article(request, id):
     return render(request , 'updateArticle.html',context)
 def publisherArticle(request):
   
-  queryset = Article.objects.filter(articlestatus ='draft')
+  queryset = Article.objects.filter()
   context = { 'articles':queryset}
   return render(request, 'publisherindex.html',context)
 
@@ -212,59 +219,28 @@ def publisherArticle(request):
 #         articles.save()
 
 
-#         #if aorr == "Accept":
-#            # queryset.articlestatus = "Published"
-#          #   messages.info(request, 'Article published succesfully')
-#        # else:
-#         #    queryset.articlestatus = "Rejected"
-#        #     messages.info(request, 'Article rejected')
-#       #  queryset.save()
-#         return redirect('publisher-article')
-#     #context = { 'articles':queryset }
-#     return render(request ,'indivialarticle.html')
+        #if aorr == "Accept":
+           # queryset.articlestatus = "Published"
+         #   messages.info(request, 'Article published succesfully')
+       # else:
+        #    queryset.articlestatus = "Rejected"
+       #     messages.info(request, 'Article rejected')
+      #  queryset.save()
+        # return redirect('publisher-article')
+    #context = { 'articles':queryset }
+    # return render(request ,'indivialarticle.html')
 
-def individualarticle(request, id):
+def individualarticle(request, pk):
 
-  if request.method == 'POST':
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        articles = Article.objects.get(pk=pk)
+        articles.articlestatus = status
+        articles.save()
+        return redirect('publisherArticle')
+    articles = Article.objects.get(pk=pk)
+    return render(request, 'indivialarticle.html',{"articles":articles})
 
-    status = request.POST.get('status')
-
-    article = Article.objects.get(pk=id)
-
-    article.status = status
-
-    article.save()
-
- 
-
-    return redirect('publisher-article')
-
- 
-
-  return render(request, 'indivialarticle.html')
-
-
-
-
-
-  
-
-    # print("hiii")
-    # queryset = Article.objects.get(id = id)
-    # context = { 'articles':queryset}
-    # if request.method == 'POST':
-
-    #     aorr = request.POST.get('aorr')
-    #     if aorr == "Accept":
-    #         queryset.articlestatus = "Published"
-    #         messages.info(request, 'Article published succesfully')
-    #     else:
-    #         queryset.articlestatus = "Rejected"
-    #         messages.info(request, 'Article rejected')
-    #     queryset.save()
-    #     return redirect(f'/individual-article/{id}/')
-    # return render(request ,'indivialarticle.html',context)
-    
 
 
 

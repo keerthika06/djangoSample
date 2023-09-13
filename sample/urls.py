@@ -44,8 +44,8 @@ urlpatterns = [
     path('publisher-article/',publisherArticle,name ="publisherArticle"),
     #path('individual-article/<id>/',individualarticle,name ="individualarticle"),
     # path('individual-article/<id>/', individualarticle, name="individualarticle"),
-    path('individualarticle/<id>/', individualarticle, name="individualarticle"),
-
+    #path('individualarticle/<id>/', individualarticle, name="individualarticle"),
+    path('individual-article/<int:pk>/', individualarticle, name="individualarticle"),
 
 
     path('update-article/<id>/',update_article,name ="update_article"),
