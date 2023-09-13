@@ -1,15 +1,10 @@
 {% extends "base.html" %}
 {% block start %}
-
-
-
 {{request.user.first_name}}
 
 
 <div class="container mt-5">
-
-    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
-        
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data"> 
       {% csrf_token %}
       <h2>Add Article</h2>
         <hr>
@@ -17,21 +12,14 @@
           <label for="exampleInputEmail1" class="form-label">Article Title</label>
           <input name="articleTitle" required type ="text" class="form-control" >
         </div>
-
         <div class="mb-3">
             <label for="exampleInputPassword1"  class="form-label">Article SubTitle</label>
             <input type="text" class="form-control" name ="articleSubTitle">
-          </div>
-
-       
+          </div> 
         <div class="mb-3">
             <label for="exampleInputPassword1"  class="form-label">Article Thumbnail</label>
             <input type="file" class="form-control" name ="articleThumbnail">
           </div>
-       
-        
-
-
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Article Description </label>
             <textarea class="form-control" name="articleDescription"  required type ="text"></textarea>
@@ -127,5 +115,4 @@
         </tbody>
        </table> -->
 </div>
-
 {% endblock %}

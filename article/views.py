@@ -8,46 +8,32 @@ from article.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-
-
-
 # Create your views here.
-
 def home(request):
     queryset = Article.objects.all()
     context = { 'articles':queryset}
-   
-
     return render(request, "base.html",context)
 
 def articles(request):
-
- 
-
   return render(request, 'base.html')
-
-
 
 def login_page(request):
    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         print("user",username)
-
         print(User.objects.values_list('username', flat=True))
         if not User.objects.filter(username = username).exists():
             print("hiiiiiiiiii",username)
             messages.error(request,'Invalid Username')
             return redirect('/login/')
         user = authenticate(username = username, password = password)
-    
         if user is None :
             messages.error(request, 'Invalid Password')
             return redirect('/login/')
         else:
             login(request,user)
             if user.is_superuser:
-          
                 return redirect('/')
             elif user.is_author:
                 return redirect('/')
@@ -58,14 +44,12 @@ def login_page(request):
                 return redirect('/login/')
    return render(request, "login.html")
    
-
 def register_page(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         role = request.POST.get('role')
         print("hiiiiiiii",role)
         user = User.objects.filter(username = username)
@@ -82,18 +66,10 @@ def register_page(request):
             user.is_author = True
         else:
             user.is_publisher = True
-
-
         user.save()
-
         messages.info(request, 'Account successfully created')
-
         return redirect('/add-user/')
     return render(request, 'addUser.html' )
-
-
-
-
 
 @login_required
 def add_article(request):
@@ -130,46 +106,29 @@ def add_article(request):
 
     #queryset= Article.objects.all()
     #context = {'recepies': queryset}
-    
-
-
-
-
-
     #return render(request, "addArticle.html")
 
 def authorPage(request):
     
     queryset = Article.objects.filter(articlestatus ='Published')
     #queryset = Article.objects.filter(Q(articlestatus ='Published') | Q(articlestatus ='Rejected'))
-
-
     context = { 'articles':queryset}
-   
-
     return render(request, "authorpage.html",context)
-
 
 def viewUsers(request):
     queryset= User.objects.all()
     print(queryset)
     context = {'users': queryset}
-
     return render(request, "viewUsers.html",context)
 
 @login_required
 def showArticletoauthor(request):
     author = request.user
-    
     queryset= Article.objects.filter(user = author)
     #queryset = Article.objects.all()
     print(queryset)
-    
     context = { 'articles':queryset}
-    
     return render(request, "showArticle.html",context)
-
-
 
 def showArticle(request):
     queryset = Article.objects.all()
@@ -180,7 +139,6 @@ def homeArticle(request):
     queryset = Article.objects.filter(articlestatus ='Published')
     context = { 'articles':queryset}
     return render(request, "base.html",context)
-
 
 def draftArticle(request):
     #queryset= Article.objects.filter(user = author)
@@ -201,11 +159,9 @@ def update_article(request, id):
         articleSubTitle = data.get('articleSubTitle')
         articleThumbnail = request.FILES.get('articleThumbnail')
         articleDescription = data.get('articleDescription')
-
         queryset.articleTitle = articleTitle
         queryset.articleSubTitle = articleSubTitle
         queryset.articleDescription = articleDescription
-
         if articleThumbnail:
             queryset.articleThumbnail = articleThumbnail
         queryset.save()
@@ -213,7 +169,6 @@ def update_article(request, id):
     context = {'article': queryset}
     return render(request , 'updateArticle.html',context)
 def publisherArticle(request):
-  
   queryset = Article.objects.filter()
   context = { 'articles':queryset}
   return render(request, 'publisherindex.html',context)
@@ -240,7 +195,6 @@ def publisherArticle(request):
     # return render(request ,'indivialarticle.html')
 
 def individualarticle(request, pk):
-
     if request.method == 'POST':
         status = request.POST.get('status')
         articles = Article.objects.get(pk=pk)
@@ -250,22 +204,15 @@ def individualarticle(request, pk):
     articles = Article.objects.get(pk=pk)
     return render(request, 'indivialarticle.html',{"articles":articles})
 
-
-
-
 def publisherAccept(request,id):
     print("hiii")
     queryset = Article.objects.get(id = id)
     context = { 'articles':queryset}
-
-   
-
     return render(request ,'indivialarticle.html',context)
     
 def delete_article(request,id):
     queryset = Article.objects.get(id = id)
     queryset.delete()
-
     return redirect('/show-article/')
 
 def delete_user(request,id):
@@ -275,6 +222,5 @@ def delete_user(request,id):
     
 def logout_page(request):
     logout(request)
-
     return redirect('/login/')
 
